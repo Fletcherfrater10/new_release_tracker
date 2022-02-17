@@ -1,5 +1,7 @@
 # TODO:
 # display new releases with images
+# bug when adding new releases of same date to release.json
+
 
 
 from __future__ import print_function    # (at top of module)
@@ -132,7 +134,7 @@ class Releases:
         self.save_cache()
 
     def release(self, artist):
-        print('Getting latest releases for: ', artist)
+        # print('Getting latest releases for: ', artist)
         single = self.get_artist_album(self.cache[artist], 'single')
         self.get_album_release_details(artist, single, 'single')
 
@@ -156,7 +158,7 @@ class Releases:
                     self.update_cache_release(name, date, image, artist, key)
                     self.update_latest_release(name, date, image, artist)
                 else:
-                    print("No New Release Found For {}".format(artist))
+                    # print("No New Release Found For {}".format(artist))
             else:
                 pass
 
@@ -235,4 +237,5 @@ class Releases:
 
 
 
-
+release = Releases()
+release.get_latest_release('all')

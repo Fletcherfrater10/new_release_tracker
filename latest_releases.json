@@ -270,11 +270,11 @@
         }
     },
     "2012-01-01": {
-        "welcome to: our house (deluxe)": {
+        "welcome to: our house (deluxe version)": {
             "artist": "Slaughterhouse",
             "image": {
                 "height": 640,
-                "url": "https://i.scdn.co/image/ab67616d0000b27340a28adb425e112a6a718618",
+                "url": "https://i.scdn.co/image/ab67616d0000b273a054f6e2b0294829695c32f3",
                 "width": 640
             }
         }
@@ -3500,11 +3500,11 @@
         }
     },
     "2021-12-03": {
-        "i hate u": {
-            "artist": "SZA",
+        "stop it": {
+            "artist": "Bino Rideaux",
             "image": {
                 "height": 640,
-                "url": "https://i.scdn.co/image/ab67616d0000b2732cb5c3a1013e6be7084da957",
+                "url": "https://i.scdn.co/image/ab67616d0000b2735ee8824c42844a80ba61d696",
                 "width": 640
             }
         }
@@ -3739,6 +3739,16 @@
             }
         }
     },
+    "2022-01-23": {
+        "grind up": {
+            "artist": "Big Narstie",
+            "image": {
+                "height": 640,
+                "url": "https://i.scdn.co/image/ab67616d0000b273933d5c1603e89be682b7e735",
+                "width": 640
+            }
+        }
+    },
     "2022-01-24": {
         "walkin": {
             "artist": "Denzel Curry",
@@ -3840,11 +3850,11 @@
         }
     },
     "2022-02-08": {
-        "diet coke": {
-            "artist": "Pusha T",
+        "bad habits (feat. bring me the horizon)": {
+            "artist": "Bring Me The Horizon",
             "image": {
                 "height": 640,
-                "url": "https://i.scdn.co/image/ab67616d0000b2731265910eee79b4764d7891f5",
+                "url": "https://i.scdn.co/image/ab67616d0000b273612413e0c31be02e4ac8bd35",
                 "width": 640
             }
         }
@@ -3910,11 +3920,21 @@
         }
     },
     "2022-02-17": {
-        "robot": {
-            "artist": "Dutchavelli",
+        "dubai": {
+            "artist": "Wiley",
             "image": {
                 "height": 640,
-                "url": "https://i.scdn.co/image/ab67616d0000b273b6fb3980d9dfc81f7bdf4471",
+                "url": "https://i.scdn.co/image/ab67616d0000b2733123e1f2880db0759466f8ee",
+                "width": 640
+            }
+        }
+    },
+    "2022-02-18": {
+        "finally": {
+            "artist": "Zdot",
+            "image": {
+                "height": 640,
+                "url": "https://i.scdn.co/image/ab67616d0000b273f9d972687de57fad6c797bad",
                 "width": 640
             }
         }
