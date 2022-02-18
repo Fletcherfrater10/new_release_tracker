@@ -1,6 +1,5 @@
 # TODO:
 # display new releases with images
-# bug when adding new releases of same date to release.json
 
 
 
@@ -127,14 +126,14 @@ class Releases:
         """
         if artist =='all':
             for artist in self.cache:
-                self.release(artist)
+                self.latest_release_type(artist)
         else:
-            self.release(artist)
+            self.latest_release_type(artist)
 
         self.save_cache()
 
-    def release(self, artist):
-        # print('Getting latest releases for: ', artist)
+    def latest_release_type(self, artist):
+        print(artist)
         single = self.get_artist_album(self.cache[artist], 'single')
         self.get_album_release_details(artist, single, 'single')
 
@@ -146,18 +145,19 @@ class Releases:
             if release != []:
                 name = release['name'].lower()
                 date = release['release_date']
-                image = release['images'][0]
+                image = release['images'][0]['url']
                 if type == 'single':
                     key = 'latest_single'
                 else:
                     key = 'latest_album'
                 current_release = self.cache[artist][key]['name']
                 if name != current_release:
-                    print("New Release Found For {}".format(artist))
+                    print("New Release Found For ** {} **))".format(artist))
                     # Update the current cache with latest release
                     self.update_cache_release(name, date, image, artist, key)
                     self.update_latest_release(name, date, image, artist)
                 else:
+                    pass
                     # print("No New Release Found For {}".format(artist))
             else:
                 pass
@@ -171,7 +171,8 @@ class Releases:
         print('cache updated')
 
     def update_latest_release(self, name, date, image, artist):
-        if date not in self.cache.keys():
+        # bug finding required here
+        if date not in self.latest_release.keys():
             self.latest_release[date] = {}
             self.latest_release[date][name] = {'artist': artist, 'image':image}
         else:
@@ -185,7 +186,6 @@ class Releases:
         count = 1
         if len(items) == 1:
             return items[0]
-
         elif len(items) > 1:
             for item in items:
                 print(count, item['name'], item['genres'], item['id'])
@@ -196,12 +196,10 @@ class Releases:
                 exit()
             elif result == '':
                 return items[0]
-
             elif result == 'm':
                 manual_id = input("Enter Manual ID: ")
                 item = self.spotify.artist(manual_id)
                 return item
-
             elif result == 's':
                 return None
             else:
@@ -237,5 +235,5 @@ class Releases:
 
 
 
-release = Releases()
+release = Releases(no_latest_release=True)
 release.get_latest_release('all')
