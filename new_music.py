@@ -5,6 +5,7 @@
 
 from __future__ import print_function    # (at top of module)
 import yaml
+import urllib.request
 import requests
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
@@ -73,7 +74,6 @@ class Releases:
 
         print(self.cache)
 
-
     def add_new_artist(self, artist):
         """
         Add a new artist to the followed list;
@@ -107,7 +107,6 @@ class Releases:
         print(artist, " has been unfollowed")
         self.save_cache()
 
-
     def reset_releases(self, artist=False):
         if not artist:
             for a in self.cache:
@@ -124,6 +123,7 @@ class Releases:
         will search albums then singles,
         Any updates will be added to a 'new releases' log to be displayed
         """
+        print("-- Searching for latest releases --")
         if artist =='all':
             for artist in self.cache:
                 self.latest_release_type(artist)
@@ -133,7 +133,6 @@ class Releases:
         self.save_cache()
 
     def latest_release_type(self, artist):
-        print(artist)
         single = self.get_artist_album(self.cache[artist], 'single')
         self.get_album_release_details(artist, single, 'single')
 
@@ -171,12 +170,12 @@ class Releases:
         print('cache updated')
 
     def update_latest_release(self, name, date, image, artist):
-        # bug finding required here
+        self.get_image(image, artist, name, date)
         if date not in self.latest_release.keys():
             self.latest_release[date] = {}
-            self.latest_release[date][name] = {'artist': artist, 'image':image}
+            self.latest_release[date][name] = {'artist': artist}
         else:
-            self.latest_release[date][name] = {'artist': artist, 'image':image}
+            self.latest_release[date][name] = {'artist': artist}
         print('latest release recorded')
 
 
@@ -214,6 +213,9 @@ class Releases:
             return latest['items'][0]
         else:
             return []
+
+    def get_image(self, url, artist, name, date):
+        urllib.request.urlretrieve(url, "releases/{}_{}_{}.jpg".format(date, artist, name))
 
     def save_cache(self, problem_artists=False):
         """
