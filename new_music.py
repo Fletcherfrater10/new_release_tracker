@@ -1,24 +1,13 @@
 # TODO:
-# display new releases with images
+# Nice display of data
+# terminal interaction
 
-
-
-from __future__ import print_function    # (at top of module)
 import yaml
 import urllib.request
-import requests
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
-import sys
-from pprint import pprint
-import argparse
-import logging
-import time
 import json
 from datetime import date
-
-logger = logging.getLogger('examples.artist_discography')
-logging.basicConfig(level='INFO')
 
 class Releases:
 
@@ -95,6 +84,7 @@ class Releases:
                 self.cache[artist]['followed_on'] = str(date.today())
                 self.cache[artist]['latest_single'] = {'name': '', 'date': '', 'image': ''}
                 self.cache[artist]['latest_album'] = {'name': '', 'date': '', 'image': ''}
+                self.get_latest_release(artist)
             self.save_cache()
         else:
             print("Artist '{}' already followed".format(artist))
@@ -126,13 +116,13 @@ class Releases:
         print("-- Searching for latest releases --")
         if artist =='all':
             for artist in self.cache:
-                self.latest_release_type(artist)
+                self.latest_release_style(artist)
         else:
-            self.latest_release_type(artist)
+            self.latest_release_style(artist)
 
         self.save_cache()
 
-    def latest_release_type(self, artist):
+    def latest_release_style(self, artist):
         single = self.get_artist_album(self.cache[artist], 'single')
         self.get_album_release_details(artist, single, 'single')
 
@@ -140,24 +130,26 @@ class Releases:
         self.get_album_release_details(artist, album, 'album')
 
 
-    def get_album_release_details(self, artist, release, type):
+    def get_album_release_details(self, artist, release, style):
             if release != []:
                 name = release['name'].lower()
                 date = release['release_date']
                 image = release['images'][0]['url']
-                if type == 'single':
+                if style == 'single':
                     key = 'latest_single'
                 else:
                     key = 'latest_album'
                 current_release = self.cache[artist][key]['name']
                 if name != current_release:
-                    print("New Release Found For ** {} **))".format(artist))
+                    print("New {} Found For ** {} **))".format(style, artist))
                     # Update the current cache with latest release
                     self.update_cache_release(name, date, image, artist, key)
-                    self.update_latest_release(name, date, image, artist)
+                    if current_release != '':
+                        self.update_latest_release(name, date, image, artist)
+                    else:
+                        pass
                 else:
                     pass
-                    # print("No New Release Found For {}".format(artist))
             else:
                 pass
 
@@ -207,8 +199,8 @@ class Releases:
             return None
 
 
-    def get_artist_album(self, artist, type):
-        latest = self.spotify.artist_albums(artist['id'], album_type=type, limit=1)
+    def get_artist_album(self, artist, style):
+        latest = self.spotify.artist_albums(artist['id'], album_type=style, limit=1)
         if latest['items'] != []:
             return latest['items'][0]
         else:
@@ -238,4 +230,4 @@ class Releases:
 
 
 release = Releases(no_latest_release=True)
-release.get_latest_release('all')
+release.add_new_artist('Sainte')
